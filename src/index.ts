@@ -3,9 +3,9 @@ export interface JoystikkOptions {
     size: number;
     pos: { left: string; top: string };
     style: {
+        baseColor: string;
         stickColor: string;
         border: string;
-        baseColor: string;
         opacity: number;
         fadeInTime: number;
         fadeOutTime: number;
@@ -17,8 +17,8 @@ export interface JoystikkOptions {
 }
 
 export function Joystikk(options: JoystikkOptions) {
-    const baseElement = document.createElement('div');
-    const stickElement = document.createElement('div');
+    const base = document.createElement('div');
+    const stick = document.createElement('div');
 
     const commonStyle = (e: HTMLElement, scale: number) => {
         e.style.width = `${options.size * scale}px`;
@@ -29,21 +29,21 @@ export function Joystikk(options: JoystikkOptions) {
         e.style.transform = 'translate(-50%, -50%)';
     };
 
-    baseElement.style.backgroundColor = options.style.baseColor;
-    commonStyle(baseElement, 1);
-    baseElement.style.left = options.pos.left;
-    baseElement.style.top = options.pos.top;
-    baseElement.style.opacity = options.style.opacity.toString();
-    baseElement.style.transition = `opacity ${options.style.fadeInTime}s`;
+    base.style.backgroundColor = options.style.baseColor;
+    commonStyle(base, 1);
+    base.style.left = options.pos.left;
+    base.style.top = options.pos.top;
+    base.style.opacity = options.style.opacity.toString();
+    base.style.transition = `opacity ${options.style.fadeInTime}s`;
 
-    stickElement.style.backgroundColor = options.style.stickColor;
-    commonStyle(stickElement, 0.5);
-    stickElement.style.left = `${options.size / 2}px`;
-    stickElement.style.top = `${options.size / 2}px`;
-    stickElement.style.transitionDuration = `${options.style.smoothing}s`;
+    stick.style.backgroundColor = options.style.stickColor;
+    commonStyle(stick, 0.5);
+    stick.style.left = `${options.size / 2}px`;
+    stick.style.top = `${options.size / 2}px`;
+    stick.style.transitionDuration = `${options.style.smoothing}s`;
 
-    baseElement.appendChild(stickElement);
-    options.zone.appendChild(baseElement);
+    base.appendChild(stick);
+    options.zone.appendChild(base);
 
     const origin = { x: 0, y: 0 };
 
@@ -56,10 +56,10 @@ export function Joystikk(options: JoystikkOptions) {
         const bounds = options.zone.getBoundingClientRect();
         origin.x = touch.clientX;
         origin.y = touch.clientY;
-        baseElement.style.left = `${origin.x - bounds.left}px`;
-        baseElement.style.top = `${origin.y - bounds.top}px`;
-        baseElement.style.transition = `opacity ${options.style.fadeInTime}s`;
-        baseElement.style.opacity = '1';
+        base.style.left = `${origin.x - bounds.left}px`;
+        base.style.top = `${origin.y - bounds.top}px`;
+        base.style.transition = `opacity ${options.style.fadeInTime}s`;
+        base.style.opacity = '1';
 
         options.onStart?.();
     });
@@ -78,8 +78,8 @@ export function Joystikk(options: JoystikkOptions) {
 
         const stickX = Math.cos(angle) * dst + options.size / 2;
         const stickY = -Math.sin(angle) * dst + options.size / 2;
-        stickElement.style.left = `${stickX}px`;
-        stickElement.style.top = `${stickY}px`;
+        stick.style.left = `${stickX}px`;
+        stick.style.top = `${stickY}px`;
 
         options.onMove?.(angle, force);
     });
@@ -89,13 +89,13 @@ export function Joystikk(options: JoystikkOptions) {
 
         const stickX = options.size / 2;
         const stickY = options.size / 2;
-        stickElement.style.left = `${stickX}px`;
-        stickElement.style.top = `${stickY}px`;
+        stick.style.left = `${stickX}px`;
+        stick.style.top = `${stickY}px`;
 
-        baseElement.style.transition = `opacity ${options.style.fadeOutTime}s`;
-        baseElement.style.opacity = options.style.opacity.toString();
-        baseElement.style.left = options.pos.left;
-        baseElement.style.top = options.pos.top;
+        base.style.transition = `opacity ${options.style.fadeOutTime}s`;
+        base.style.opacity = options.style.opacity.toString();
+        base.style.left = options.pos.left;
+        base.style.top = options.pos.top;
 
         options.onEnd?.();
     };

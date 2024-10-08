@@ -26,9 +26,9 @@ Joystikk({
     size: 192,
     pos: { left: '10%', top: '70%' },
     style: {
+        baseColor: "#fff2",
         stickColor: "#fff2",
         border: "2px solid #fff8",
-        baseColor: "#fff2",
         opacity: 0.3,
         fadeInTime: 0.2,
         fadeOutTime: 0.5,
