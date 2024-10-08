@@ -17,11 +17,11 @@ npm i joystikk
 ```
 
 ## Usage
-```typescript
+```javascript
 import { Joystikk } from 'joystikk';
 
 const onStart = () => console.log("on start");
-const onMove = (angle: number, force: number) => console.log("on move", angle, force);
+const onMove = (angle, force) => console.log("on move", angle, force);
 const onEnd = () => console.log("on end");
 
 Joystikk({
