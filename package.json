@@ -1,6 +1,6 @@
 {
     "name": "joystikk",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Virtual joystick for mobile apps",
     "type": "module",
     "main": "dist/index.js",

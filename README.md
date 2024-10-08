@@ -4,10 +4,9 @@
 [![npm](https://img.shields.io/npm/dm/joystikk)](https://www.npmjs.com/package/joystikk)
 [![GitHub](https://img.shields.io/github/license/eekelof/joystikk)](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
 
-
 ## Features
-- :joystick: Virtual joystick for mobile apps
-- :hammer: Customizable style
+- :joystick: Virtual joystick
+- :hammer: Customizable
 - :zap: Zero dependencies
 
 ## Usage
