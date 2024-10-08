@@ -1,6 +1,6 @@
 {
     "name": "joystikk",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Virtual joystick for mobile apps",
     "type": "module",
     "main": "dist/index.js",
@@ -13,7 +13,8 @@
         "url": "git+https://github.com/eekelof/Joystikk.git"
     },
     "keywords": [
-        "joystick"
+        "joystick",
+        "joystikk"
     ],
     "author": "eekelof",
     "license": "MIT",

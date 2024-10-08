@@ -1,4 +1,4 @@
-# Joystikk
+# Joystikk :joystick:
 
 [![npm](https://img.shields.io/npm/v/joystikk)](https://www.npmjs.com/package/joystikk)
 [![npm](https://img.shields.io/npm/dm/joystikk)](https://www.npmjs.com/package/joystikk)
@@ -18,14 +18,14 @@ npm i joystikk
 
 ## Usage
 ```typescript
-import { Joystick } from 'joystick';
+import { Joystikk } from 'joystikk';
 
 const onStart = () => console.log("on start");
 const onMove = (angle: number, force: number) => console.log("on move", angle, force);
 const onEnd = () => console.log("on end");
 
-Joystick({
-    zone: document.getElementById("joystickZone"),
+Joystikk({
+    zone: document.getElementById("zone"),
     size: 192,
     pos: { left: '10%', top: '70%' },
     style: {
