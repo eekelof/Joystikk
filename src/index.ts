@@ -46,15 +46,15 @@ export function Joystikk(options: JoystikkOptions) {
         if (!touch)
             return;
 
-        const bounds = settings.zone.getBoundingClientRect();
-
         if (settings.dynamic) {
+            const bounds = settings.zone.getBoundingClientRect();
             origin.x = touch.clientX;
             origin.y = touch.clientY;
             base.style.left = `${origin.x - bounds.left}px`;
             base.style.top = `${origin.y - bounds.top}px`;
         }
         else {
+            const bounds = base.getBoundingClientRect();
             origin.x = bounds.left + bounds.width / 2;
             origin.y = bounds.top + bounds.height / 2;
         }
