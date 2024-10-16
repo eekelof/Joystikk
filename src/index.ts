@@ -82,7 +82,7 @@ export function Joystikk(options: JoystikkOptions) {
         if (!touch)
             return;
 
-        const radius = settings.size / 2;
+        const radius = settings.size * settings.style.base.scale / 2;
         const dx = touch.clientX - origin.x;
         const dy = origin.y - touch.clientY;
         const angle = Math.atan2(dy, dx);
@@ -100,7 +100,7 @@ export function Joystikk(options: JoystikkOptions) {
     const onEnd = (e: TouchEvent) => {
         e.preventDefault();
 
-        const radius = settings.size / 2;
+        const radius = settings.size * settings.style.base.scale / 2;
         const stickX = radius;
         const stickY = radius;
         stick.style.left = `${stickX}px`;
@@ -131,19 +131,19 @@ function setPartStyle(e: HTMLElement, style: PartStyle, size: number) {
     e.style.boxShadow = style.boxShadow;
 }
 
-function setStyle(o: JoystikkSettings, base: HTMLElement, stick: HTMLElement) {
-    base.style.left = o.pos.left;
-    base.style.top = o.pos.top;
-    base.style.opacity = o.style.restingOpacity.toString();
-    base.style.transition = `opacity ${o.style.fadeInTime}s`;
+function setStyle(settings: JoystikkSettings, base: HTMLElement, stick: HTMLElement) {
+    setPartStyle(base, settings.style.base, settings.size);
+    setPartStyle(stick, settings.style.stick, settings.size);
 
-    setPartStyle(base, o.style.base, o.size);
-    setPartStyle(stick, o.style.stick, o.size);
+    base.style.left = settings.pos.left;
+    base.style.top = settings.pos.top;
+    base.style.opacity = settings.style.restingOpacity.toString();
+    base.style.transition = `opacity ${settings.style.fadeInTime}s`;
 
-    const radius = o.size / 2;
+    const radius = settings.size * settings.style.base.scale / 2;
     stick.style.left = `${radius}px`;
     stick.style.top = `${radius}px`;
-    stick.style.transitionDuration = `${o.style.dragTime}s`;
+    stick.style.transitionDuration = `${settings.style.dragTime}s`;
 }
 
 function getSettings(options: JoystikkOptions): JoystikkSettings {
