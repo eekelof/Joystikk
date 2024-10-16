@@ -13,6 +13,7 @@
 ```bash
 npm i joystikk
 ```
+
 ```javascript
 import { Joystikk } from 'joystikk';
 
@@ -22,21 +23,49 @@ const onEnd = () => console.log("on end");
 
 Joystikk({
     zone: document.getElementById("zone"),
-    size: 192,
+    size: 300,
     pos: { left: '10%', top: '70%' },
     style: {
-        baseColor: "#fff2",
-        stickColor: "#fff2",
-        border: "2px solid #fff8",
-        opacity: 0.3,
-        fadeInTime: 0.2,
-        fadeOutTime: 0.5,
-        smoothing: 0.05,
+        restingOpacity: 0.1,
     },
     onStart,
     onMove,
     onEnd
 });
+```
+
+### Options
+```javascript
+return {
+    zone: document.body,
+    dynamic: true,
+    size: 200,
+    pos: {
+        left: '50%',
+        top: '50%'
+    },
+    style: {
+        base: {
+            scale: 1,
+            backgroundColor: '#fff2',
+            border: '2px solid #fff8',
+            boxShadow: 'none',
+        },
+        stick: {
+            scale: 0.5,
+            backgroundColor: '#fff2',
+            border: '2px solid #fff8',
+            boxShadow: 'none',
+        },
+        fadeInTime: 0.2,
+        fadeOutTime: 0.5,
+        dragTime: 0.05,
+        restingOpacity: 0.3
+    },
+    onStart: () => { },
+    onMove: () => { },
+    onEnd: () => { }
+};
 ```
 
 ## License
