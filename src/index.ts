@@ -23,12 +23,23 @@ export interface JoystikkSettings {
     onEnd: () => void;
 }
 
-type JoystikkOptions = Partial<JoystikkSettings> & {
+type JoystikkOptions = {
+    zone?: HTMLElement;
+    dynamic?: boolean;
+    size?: number;
+    pos?: { left: string; top: string };
     style?: {
         base?: Partial<PartStyle>;
         stick?: Partial<PartStyle>;
+        fadeInTime?: number;
+        fadeOutTime?: number;
+        dragTime?: number;
+        restingOpacity?: number;
     };
-};
+    onStart?: () => void;
+    onMove?: (angle: number, force: number) => void;
+    onEnd?: () => void;
+}
 
 export function Joystikk(options: JoystikkOptions) {
     const settings = getSettings(options);
