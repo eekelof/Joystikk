@@ -10,6 +10,7 @@ export interface JoystikkSettings {
     dynamic: boolean;
     size: number;
     pos: { left: string; top: string };
+    lock: { x: boolean; y: boolean };
     style: {
         base: PartStyle;
         stick: PartStyle;
@@ -28,6 +29,7 @@ type JoystikkOptions = {
     dynamic?: boolean;
     size?: number;
     pos?: { left: string; top: string };
+    lock?: { x: boolean; y: boolean };
     style?: {
         base?: Partial<PartStyle>;
         stick?: Partial<PartStyle>;
@@ -83,8 +85,8 @@ export function Joystikk(options: JoystikkOptions) {
             return;
 
         const radius = settings.size * settings.style.base.scale / 2;
-        const dx = touch.clientX - origin.x;
-        const dy = origin.y - touch.clientY;
+        const dx = settings.lock.x ? 0 : touch.clientX - origin.x;
+        const dy = settings.lock.y ? 0 : origin.y - touch.clientY;
         const angle = Math.atan2(dy, dx);
         const dst = Math.min(radius, (dx ** 2 + dy ** 2) ** 0.5);
         const force = dst / radius;
@@ -164,6 +166,7 @@ function getSettings(options: JoystikkOptions): JoystikkSettings {
         dynamic: options.dynamic ?? true,
         size: options.size ?? 200,
         pos: options.pos ?? { left: '50%', top: '50%' },
+        lock: options.lock ?? { x: false, y: false },
         style: {
             base: baseStyle,
             stick: stickStyle,

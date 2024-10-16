@@ -44,6 +44,10 @@ return {
         left: '50%',
         top: '50%'
     },
+    lock:{
+        x: false,        
+        y: false        
+    },
     style: {
         base: {
             scale: 1,
