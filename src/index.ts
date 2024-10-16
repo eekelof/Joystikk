@@ -5,28 +5,28 @@ interface PartStyle {
     boxShadow: string;
 }
 
-export interface JoystikkOptions {
-    zone?: HTMLElement;
-    dynamic?: boolean;
-    size?: number;
-    pos?: { left: string; top: string };
+export interface JoystikkSettings {
+    zone: HTMLElement;
+    dynamic: boolean;
+    size: number;
+    pos: { left: string; top: string };
+    style: {
+        base: PartStyle;
+        stick: PartStyle;
+        fadeInTime: number;
+        fadeOutTime: number;
+        dragTime: number;
+        restingOpacity: number;
+    };
+    onStart: () => void;
+    onMove: (angle: number, force: number) => void;
+    onEnd: () => void;
+}
+
+type JoystikkOptions = Partial<JoystikkSettings> & {
     style?: {
         base?: Partial<PartStyle>;
         stick?: Partial<PartStyle>;
-        fadeInTime?: number;
-        fadeOutTime?: number;
-        dragTime?: number;
-        restingOpacity?: number;
-    };
-    onStart?: () => void;
-    onMove?: (angle: number, force: number) => void;
-    onEnd?: () => void;
-}
-
-type JoystikkSettings = Required<JoystikkOptions> & {
-    style: Required<NonNullable<JoystikkOptions['style']>> & {
-        base: Required<PartStyle>;
-        stick: Required<PartStyle>;
     };
 };
 
