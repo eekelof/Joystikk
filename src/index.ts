@@ -91,10 +91,9 @@ export function Joystikk(options: JoystikkOptions) {
         const dst = Math.min(radius, (dx ** 2 + dy ** 2) ** 0.5);
         const force = dst / radius;
 
-        const stickX = Math.cos(angle) * dst + radius;
-        const stickY = -Math.sin(angle) * dst + radius;
-        stick.style.left = `${stickX}px`;
-        stick.style.top = `${stickY}px`;
+        const x = Math.cos(angle) * dst + radius;
+        const y = -Math.sin(angle) * dst + radius;
+        stick.style.transform = "translate(calc(" + x + "px - 50%), calc(" + y + "px - 50%))";
 
         settings.onMove(angle, force);
     };
@@ -103,10 +102,7 @@ export function Joystikk(options: JoystikkOptions) {
         e.preventDefault();
 
         const radius = settings.size * settings.style.base.scale / 2;
-        const stickX = radius;
-        const stickY = radius;
-        stick.style.left = `${stickX}px`;
-        stick.style.top = `${stickY}px`;
+        stick.style.transform = "translate(calc(" + radius + "px - 50%), calc(" + radius + "px - 50%))";
 
         base.style.transition = `opacity ${settings.style.fadeOutTime}s`;
         base.style.opacity = settings.style.restingOpacity.toString();
@@ -143,8 +139,10 @@ function setStyle(settings: JoystikkSettings, base: HTMLElement, stick: HTMLElem
     base.style.transition = `opacity ${settings.style.fadeInTime}s`;
 
     const radius = settings.size * settings.style.base.scale / 2;
-    stick.style.left = `${radius}px`;
-    stick.style.top = `${radius}px`;
+    stick.style.left = "0px";
+    stick.style.top = "0px";
+
+    stick.style.transform = "translate(calc(" + radius + "px - 50%), calc(" + radius + "px - 50%))";
     stick.style.transitionDuration = `${settings.style.dragTime}s`;
 }
 
