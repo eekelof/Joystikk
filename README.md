@@ -34,7 +34,7 @@ Joystikk({
 });
 ```
 
-### Options
+### Options (default values)
 ```javascript
 return {
     zone: document.body,
