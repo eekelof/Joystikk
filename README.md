@@ -26,7 +26,7 @@ Joystikk({
     size: 300,
     pos: { left: '10%', top: '70%' },
     style: {
-        restingOpacity: 0.1,
+        restingOpacity: 0.1
     },
     onStart,
     onMove,
@@ -53,13 +53,13 @@ return {
             scale: 1,
             backgroundColor: '#fff2',
             border: '2px solid #fff8',
-            boxShadow: 'none',
+            boxShadow: 'none'
         },
         stick: {
             scale: 0.5,
             backgroundColor: '#fff2',
             border: '2px solid #fff8',
-            boxShadow: 'none',
+            boxShadow: 'none'
         },
         fadeInTime: 0.2,
         fadeOutTime: 0.5,
