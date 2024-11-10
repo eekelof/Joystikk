@@ -53,13 +53,15 @@ export function Joystikk(options: JoystikkOptions) {
     settings.zone.appendChild(base);
 
     const origin = { x: 0, y: 0 };
+    let tid = -1;
     const onStart = (e: TouchEvent) => {
         e.preventDefault();
         const touch = e.targetTouches[0];
         if (!touch)
             return;
-        if (e.targetTouches.length > 1)
+        if (tid != -1)
             return;
+        tid = touch.identifier;
 
         if (settings.dynamic) {
             const bounds = settings.zone.getBoundingClientRect();
@@ -82,7 +84,11 @@ export function Joystikk(options: JoystikkOptions) {
 
     const onMove = (e: TouchEvent) => {
         e.preventDefault();
-        const touch = e.targetTouches[0];
+        let touch = null;
+        for (const t of e.touches) {
+            if (t.identifier == tid)
+                touch = t;
+        }
         if (!touch)
             return;
 
@@ -102,8 +108,13 @@ export function Joystikk(options: JoystikkOptions) {
 
     const onEnd = (e: TouchEvent) => {
         e.preventDefault();
-        if (e.targetTouches.length > 0)
+        if (tid == -1)
             return;
+        for (const t of e.touches) {
+            if (t.identifier == tid)
+                return;
+        }
+        tid = -1;
 
         const radius = settings.size * settings.style.base.scale / 2;
         stick.style.transform = "translate(calc(" + radius + "px - 50%), calc(" + radius + "px - 50%))";
@@ -118,8 +129,8 @@ export function Joystikk(options: JoystikkOptions) {
 
     settings.zone.addEventListener('touchstart', onStart);
     settings.zone.addEventListener('touchmove', onMove);
-    settings.zone.addEventListener('touchend', e => onEnd(e));
-    settings.zone.addEventListener('touchcancel', e => onEnd(e));
+    settings.zone.addEventListener('touchend', onEnd);
+    settings.zone.addEventListener('touchcancel', onEnd);
 }
 
 function setPartStyle(e: HTMLElement, style: PartStyle, size: number) {
