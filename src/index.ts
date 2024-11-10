@@ -58,6 +58,8 @@ export function Joystikk(options: JoystikkOptions) {
         const touch = e.targetTouches[0];
         if (!touch)
             return;
+        if (e.targetTouches.length > 1)
+            return;
 
         if (settings.dynamic) {
             const bounds = settings.zone.getBoundingClientRect();
@@ -100,6 +102,8 @@ export function Joystikk(options: JoystikkOptions) {
 
     const onEnd = (e: TouchEvent) => {
         e.preventDefault();
+        if (e.targetTouches.length > 0)
+            return;
 
         const radius = settings.size * settings.style.base.scale / 2;
         stick.style.transform = "translate(calc(" + radius + "px - 50%), calc(" + radius + "px - 50%))";
